@@ -22,7 +22,15 @@
                 <label class="form-label" for="teams">Teams</label>
                 <textarea class="form-control" id="teams" name="teams" rows="4" placeholder="Enter the teams, with each team on a separate line"></textarea>
             </div>
-            <div class="mb-3">
+            <div class="mb-3 form-check">
+                <input class="form-check-input" type="checkbox" value="" id="plteams" name="plteams">
+                <label class="form-check-label" for="plteams">Premier League Clubs</label>
+            </div>
+            <div class="mb-3 form-check">
+                <input class="form-check-input" type="checkbox" value="" id="euroteams" name="euroteams">
+                <label class="form-check-label" for="euroteams">Euro 2024 Nations</label>
+            </div>
+            <div class="mb-3 form-check">
                 <input class="form-check-input" type="checkbox" value="" id="4atb" name="4atb">
                 <label class="form-check-label" for="4atb">4 at the back formations only</label>
             </div>
@@ -30,7 +38,7 @@
                 <input class="form-check-input" type="checkbox" value="" id="positionLock" name="positionLock">
                 <label class="form-check-label" for="positionLock">Position lock</label>
             </div> -->
-            <div class="mb-3">
+            <div class="mb-3 form-check">
                 <input class="form-check-input" type="checkbox" value="" id="swaps" name="swaps" onchange="toggleSwaps(event)">
                 <label class="form-check-label" for="swaps">Swaps</label>
             </div>

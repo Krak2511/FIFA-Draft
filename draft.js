@@ -9,7 +9,29 @@ window.onload = function() {
         value = value.replaceAll('%0D%0A', ',');
         if(value.includes(',')) value = value.split(',');
         vars[key] = value;
-    });    
+    });
+
+    if (!vars.teams) {
+        vars.teams = [];
+    }
+
+    if ('plteams' in vars) {
+        vars.teams = vars.teams.concat(["Man City", "Arsenal", "Liverpool", "Aston Villa", "Tottenham",
+                    "Chelsea", "Newcastle", "Man United", "West Ham", "Crystal Palace",
+                    "Brighton", "Bournemouth", "Fulham", "Wolves", "Everton",
+                    "Brentford", "Nottm Forest", "Luton Town", "Burnley", "Sheffield United"]);
+    }
+
+    if ('euroteams' in vars) {
+        vars.teams = vars.teams.concat(["Germany", "Scotland", "Hungary", "Switzerland",
+                    "Spain", "Croatia", "Italy", "Albania",
+                    "Slovenia", "Denmark", "Serbia", "England",
+                    "Poland", "Netherlands", "Austria", "France",
+                    "Belgium", "Slovakia", "Romania", "Ukraine",
+                    "Turkey", "Georgia", "Portugal", "Czech Republic"]);
+    }
+
+    console.log(vars.teams);
 
     if ('4atb' in vars) {
         var formations = ["451 Attack", "4141", "4231 Narrow", "4231 Wide", "451 Flat",
@@ -64,6 +86,7 @@ function shuffle(array) {
 }
 
 function draft() {
+    if (draftOrder.length == 0) return;
     var player = draftOrder.shift();
     var team = pickTeam(player);
     draftPicks[vars.players.indexOf(player)].push(team);
