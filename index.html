@@ -11,13 +11,34 @@
 </head>
 <body>
     <div class="container-fluid">
-        <p>Welcome to the FIFA Draft!</p>
-        <form action="index.html" method="get">
-            <div class="form-group">
-                <label for="players">Players</label>
-                <textarea class="form-control" id="players" rows="4" placeholder="Enter the players with each name on a separate line"></textarea>
+        <h2>FIFA Draft</h2>
+        <!-- <h5>Setup</h5> -->
+        <form action="draft.html" method="get">
+            <div class="mb-3">
+                <label class="form-label" for="players">Players</label>
+                <textarea class="form-control" id="players" name="players" rows="4" placeholder="Enter the players, with each name on a separate line"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary mt-2">Submit</button>
+            <div class="mb-3">
+                <label class="form-label" for="teams">Teams</label>
+                <textarea class="form-control" id="teams" name="teams" rows="4" placeholder="Enter the teams, with each team on a separate line"></textarea>
+            </div>
+            <div class="mb-3">
+                <input class="form-check-input" type="checkbox" value="" id="4atb" name="4atb">
+                <label class="form-check-label" for="4atb">4 at the back formations only</label>
+            </div>
+            <div class="mb-3">
+                <input class="form-check-input" type="checkbox" value="" id="positionLock" name="positionLock">
+                <label class="form-check-label" for="positionLock">Position lock</label>
+            </div>
+            <div class="mb-3">
+                <input class="form-check-input" type="checkbox" value="" id="swaps" name="swaps" onchange="toggleSwaps(event)">
+                <label class="form-check-label" for="swaps">Swaps</label>
+            </div>
+            <div class="mb-3" id="swapshidden" style="display: none">
+                <label class="form-label" for="swapsNo">Number of swaps</label>
+                <input class="form-control" type="number" value="" id="swapsNo" name="swapsNo">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
 </body>

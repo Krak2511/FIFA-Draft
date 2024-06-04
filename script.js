@@ -10,3 +10,11 @@ window.onload = function() {
         this.style.height = (this.scrollHeight) + "px";
     }
 }
+
+function toggleSwaps(e) {
+    if (e.target.checked) {
+        document.getElementById("swapshidden").style.display = 'block';
+    } else {
+        document.getElementById("swapshidden").style.display = 'none';
+    }
+}
