@@ -21,11 +21,18 @@ window.onload = function() {
         vars.teams = [];
     }
 
-    if ('plTeams' in vars) {
+    if ('plTeams23' in vars) {
         vars.teams = vars.teams.concat(["Man City", "Arsenal", "Liverpool", "Aston Villa", "Tottenham",
                     "Chelsea", "Newcastle", "Man United", "West Ham", "Crystal Palace",
                     "Brighton", "Bournemouth", "Fulham", "Wolves", "Everton",
                     "Brentford", "Nottm Forest", "Luton Town", "Burnley", "Sheffield United"]);
+    }
+
+    if ('plTeams24' in vars) {
+        vars.teams = vars.teams.concat(["Man City", "Arsenal", "Liverpool", "Aston Villa", "Tottenham",
+                    "Chelsea", "Newcastle", "Man United", "West Ham", "Crystal Palace",
+                    "Brighton", "Bournemouth", "Fulham", "Wolves", "Everton",
+                    "Brentford", "Nottm Forest", "Leicester City", "Ipswich Town", "Southampton"]);
     }
 
     if ('euroTeams' in vars) {
