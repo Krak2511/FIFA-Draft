@@ -7,6 +7,7 @@ var currentRound = 0;
 
 var swapPicks = [];
 var swapRound = 0;
+var swapCount = 0;
 
 window.onload = function() {
     window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
@@ -184,4 +185,11 @@ function swaps() {
 
     swapPicks.splice(index, 1);
     swapRound++;
+
+    console.log(swapCount);
+}
+
+function swapYes() {
+    swapCount++;
+    swaps();
 }
