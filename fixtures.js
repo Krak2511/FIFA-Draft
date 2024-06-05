@@ -34,9 +34,11 @@ window.onload = function() {
         var row = tbody.insertRow();
         matchGroup.forEach(match => {
             var cell = row.insertCell();
-            var id = (row.rowIndex-1).toString() + cell.cellIndex.toString();
-            var input = '<input class="form-control" type="number" value="" id="' + id + '" name="' + id + '" min="0" style="display: inline; width: 20%"></input>';
-            cell.innerHTML = match[0] + ' ' + input + ' - ' + input + ' ' + match[1];
+            var id0 = (row.rowIndex-1).toString() + '|' + cell.cellIndex.toString() + '|' + '0';
+            var input0 = '<input class="form-control" type="number" value="" id="' + id0 + '" name="' + id0 + '" min="0" style="display: inline; width: 4rem" onfocus="this.oldvalue = this.value;" onchange="update(this); this.oldvalue = this.value;"></input>';
+            var id1 = (row.rowIndex-1).toString() + '|' + cell.cellIndex.toString() + '|' + '1';
+            var input1 = '<input class="form-control" type="number" value="" id="' + id1 + '" name="' + id1 + '" min="0" style="display: inline; width: 4rem" onfocus="this.oldvalue = this.value;" onchange="update(this); this.oldvalue = this.value;"></input>';
+            cell.innerHTML = match[0] + ' ' + input0 + ' - ' + input1 + ' ' + match[1];
         })
     });
 }
@@ -87,6 +89,5 @@ function roundRobin (n, ps) {
     return rs;
 }
 
-function update() {
-    
+function update(e) {
 }
