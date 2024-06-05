@@ -74,7 +74,7 @@ window.onload = function() {
         draftPicks.push([]);
     });
 
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 11; i++) {
         if (i % 2 == 0) {
             draftOrder = draftOrder.concat(vars.players);
         } else {
