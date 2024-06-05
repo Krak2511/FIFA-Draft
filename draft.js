@@ -195,7 +195,8 @@ function swapYes() {
     if (swapCount < vars.swapsNo) {
         swaps();
     } else {
-        var urlParams = new URLSearchParams(window.location.search);
-        window.location.href = 'matches.html?' + urlParams.toString();
+        var params = new URLSearchParams(window.location.search);
+        params.delete('teams');
+        window.location.href = 'fixtures.html?' + params.toString();
     }
 }
