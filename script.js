@@ -13,8 +13,8 @@ window.onload = function() {
 
 function toggleSwaps(e) {
     if (e.target.checked) {
-        document.getElementById("swapshidden").style.display = 'block';
+        document.getElementById("swapsHidden").style.display = 'block';
     } else {
-        document.getElementById("swapshidden").style.display = 'none';
+        document.getElementById("swapsHidden").style.display = 'none';
     }
 }
