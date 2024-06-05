@@ -111,8 +111,6 @@ function pickTeam(player) {
 
 function showSwaps() {
     document.getElementById("swapsButton").style.display = 'block';
-    document.getElementById("swapYesButton").style.display = 'block';
-    document.getElementById("swapNoButton").style.display = 'block';
     document.getElementById("swapsTable").style.display = 'table';
     for (let i = 0; i < 11; i++) {
         swapPicks.push(i);
@@ -159,15 +157,19 @@ var formationPositions = {
 }
 
 function swaps() {
+    if (swapPicks.length == 0) return;
+
+    document.getElementById("swapButtons").style.display = 'inline-flex';
+
     var row = document.querySelector('#swapsTable tbody').insertRow();
     var cell = row.insertCell();
     for (let i = 0; i < 4; i++) {
         row.insertCell();
     }
 
-    var index = swapPicks[Math.floor(Math.random()*swapPicks.length)];
+    var posIndex = swapPicks[Math.floor(Math.random()*swapPicks.length)];
 
-    if (swapPicks[index] == 0) {
+    if (posIndex == 0) {
         var statIndex = Math.floor(Math.random()*gkStats.length);
         cell.innerText = gkStats[statIndex];
         gkStats.splice(statIndex, 1);
@@ -180,16 +182,18 @@ function swaps() {
     vars.players.forEach(player => {
         var formation = formationsUsed[vars.players.indexOf(player)];
         var positions = formationPositions[formation];
-        document.querySelectorAll('#swapsTable tbody tr')[swapRound].children[vars.players.indexOf(player)+1].innerHTML = positions[index];
+        document.querySelectorAll('#swapsTable tbody tr')[swapRound].children[vars.players.indexOf(player)+1].innerHTML = positions[posIndex];
     });
 
-    swapPicks.splice(index, 1);
+    swapPicks.splice(swapPicks.indexOf(posIndex), 1);
     swapRound++;
-
-    console.log(swapCount);
 }
 
 function swapYes() {
     swapCount++;
-    swaps();
+    if (swapCount < vars.swapsNo) {
+        swaps();
+    } else {
+        console.log('no');
+    }
 }
