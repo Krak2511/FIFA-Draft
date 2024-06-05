@@ -64,17 +64,17 @@ window.onload = function() {
     const playerRows = document.getElementsByClassName('playerRow');
     const formationRow = document.getElementById('formationRow');
     vars.players.forEach(player => {
-        playerRows[0].children[vars.players.indexOf(player)].innerHTML = player;
-        playerRows[1].children[vars.players.indexOf(player)+1].innerHTML = player;
+        playerRows[1].insertCell().outerHTML = '<th scope="col">' + player + '</th>';
+        playerRows[0].insertCell().outerHTML = '<th scope="col">' + player + '</th>';
 
         var formation = formations[Math.floor(Math.random()*formations.length)];
         formationsUsed.push(formation);
-        formationRow.children[vars.players.indexOf(player)].innerHTML = formation;
+        formationRow.insertCell().outerHTML = '<th>' + formation + '</th>';
 
         draftPicks.push([]);
     });
 
-    for (let i = 0; i < 11; i++) {
+    for (let i = 0; i < 2; i++) {
         if (i % 2 == 0) {
             draftOrder = draftOrder.concat(vars.players);
         } else {
@@ -99,11 +99,17 @@ function shuffle(array) {
 
 function draft() {
     if (draftOrder.length == 0) return;
+    if (draftOrder.length % vars.players.length == 0) {
+        var row = document.querySelector('#draftTable tbody').insertRow();
+        for (let i = 0; i < vars.players.length; i++) {
+            row.insertCell();
+        }
+    }
     var player = draftOrder.shift();
     var team = pickTeam(player);
     draftPicks[vars.players.indexOf(player)].push(team);
     document.querySelectorAll('#draftTable tbody tr')[currentRound].children[vars.players.indexOf(player)].innerHTML = team;
-    if (draftOrder.length % 4 == 0) currentRound++;
+    if (draftOrder.length % vars.players.length == 0) currentRound++;
     if (draftOrder.length == 0 && 'swaps' in vars) showSwaps();
 }
 
@@ -171,7 +177,7 @@ function swaps() {
 
     var row = document.querySelector('#swapsTable tbody').insertRow();
     var cell = row.insertCell();
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < vars.players.length; i++) {
         row.insertCell();
     }
 
