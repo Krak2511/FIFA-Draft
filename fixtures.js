@@ -1,4 +1,5 @@
 var vars = {};
+var leagueTable;
 
 window.onload = function() {
     window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
@@ -8,7 +9,7 @@ window.onload = function() {
         vars[key] = value;
     });
 
-    new DataTable('#leagueTable', {
+    leagueTable = new DataTable('#leagueTable', {
         order: [[9, 'desc'], [8, 'desc']],
         paging: false,
         info: false,
@@ -18,18 +19,24 @@ window.onload = function() {
                 targets: [9],
                 orderData: [9, 8]
             }
-        ]
+        ],
+        columns: [{width: '5%', targets: 0}]
+    });
+
+    vars.players.forEach(player => {
+        leagueTable.row.add([1, player, 0, 0, 0, 0, 0, 0, 0, 0]).draw(false);
     });
 
     var matches = roundRobin(vars.players.length, vars.players);
     shuffle(matches);
-    console.log(matches);
-    var tbody = document.querySelector('#fixturesTable tbody');
+    var tbody = document.querySelector('#fixtureTable tbody');
     matches.forEach(matchGroup => {
         var row = tbody.insertRow();
         matchGroup.forEach(match => {
             var cell = row.insertCell();
-            cell.innerHTML = match[0] + ' vs ' + match[1];
+            var id = (row.rowIndex-1).toString() + cell.cellIndex.toString();
+            var input = '<input class="form-control" type="number" value="" id="' + id + '" name="' + id + '" min="0" style="display: inline; width: 20%"></input>';
+            cell.innerHTML = match[0] + ' ' + input + ' - ' + input + ' ' + match[1];
         })
     });
 }
@@ -78,4 +85,8 @@ function roundRobin (n, ps) {
         ps.splice(1, 0, ps.pop()); // permutate for next round
     }
     return rs;
-};
+}
+
+function update() {
+    
+}
