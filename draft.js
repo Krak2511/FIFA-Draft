@@ -110,12 +110,13 @@ function pickTeam(player) {
 }
 
 function showSwaps() {
-    document.getElementById("swapsButton").style.display = 'block';
+    document.getElementById("swapsHeader").style.display = 'block';
     document.getElementById("swapsTable").style.display = 'table';
     for (let i = 0; i < 11; i++) {
         swapPicks.push(i);
         swapPicks.push(i);
     }
+    swaps();
 }
 
 var stats = ["Acceleration", "Sprint Speed", "Agility", "Balance", "Reactions", "Ball Control", "Dribbling", "Composure", "Positioning", "Finishing", "Shot Power", "Long Shots", "Volleys", "Penalties", "Interceptions", "Heading Accuracy", "Defensive Awareness", "Standing Tackle", "Sliding Tackle", "Vision", "Crossing", "Free Kick Accuracy", "Short Passing", "Long Passing", "Curve", "Jumping", "Stamina", "Strength", "Aggression"]
