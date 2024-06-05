@@ -195,6 +195,7 @@ function swapYes() {
     if (swapCount < vars.swapsNo) {
         swaps();
     } else {
-        console.log('no');
+        var urlParams = new URLSearchParams(window.location.search);
+        window.location.href = 'matches.html?' + urlParams.toString();
     }
 }
