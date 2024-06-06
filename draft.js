@@ -423,7 +423,7 @@ function draft() {
     
     var cell = document.querySelectorAll('#draftTable tbody tr')[currentRound].children[vars.players.indexOf(player)];
     if (vars.teamSwitch == 'nations') {
-        cell.innerHTML = '<a href="https://www.futbin.com/players?page=1&nation=' + nationIDs[team] + '&version=gold&pos_type=all" class="link-dark link-underline-opacity-0 link-underline-opacity-100-hover">' + team + '</a>';
+        cell.innerHTML = '<a target="_blank" href="https://www.futbin.com/players?page=1&nation=' + nationIDs[team] + '&version=gold&pos_type=all" class="link-dark link-underline-opacity-0 link-underline-opacity-100-hover">' + team + '</a>';
     } else {
         cell.innerHTML = team;
     }
