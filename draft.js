@@ -160,8 +160,6 @@ function draft() {
 
     if ('positionLock' in vars) {
         var index = Math.floor(Math.random()*formationPositionsUsed[vars.players.indexOf(player)].length);
-        console.log(formationPositionsUsed[vars.players.indexOf(player)]);
-        console.log(index);
         cell.innerHTML += ' ' + formationPositionsUsed[vars.players.indexOf(player)][index];
         formationPositionsUsed[vars.players.indexOf(player)].splice(index, 1);
     }
