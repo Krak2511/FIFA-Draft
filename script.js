@@ -35,3 +35,11 @@ function toggleTeams(e) {
         hideDivs[i].style.display = 'none';
     }
 }
+
+function toggle4starTeams(e) {
+    if (e.target.checked) {
+        document.getElementById("4starHidden").style.display = 'block';
+    } else {
+        document.getElementById("4starHidden").style.display = 'none';
+    }
+}

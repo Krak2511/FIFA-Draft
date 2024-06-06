@@ -111,7 +111,34 @@ window.onload = function() {
                                         "Aston Villa", "Real Betis", "Real Sociedad", "Villarreal", "Athletic Bilbao"]);
     }
 
+    if ('4starTeams' in vars) {
+        var fourStarTeams = ["Galatasaray", "Atalanta", "Porto", "Benfica", "Fiorentina",
+                            "Marseille", "West Ham", "Everton", "Frankfurt", "Wolves",
+                            "Sporting", "Braga", "Stade Rennais", "Osasuna", "Fulham",
+                            "Brighton", "Brentford", "Al Ittihad", "Monaco", "Palmeiras",
+                            "Ajax", "Hoffenheim", "Fenerbahce", "Celta Vigo", "Rayo Vallecano",
+                            "Nice", "Lyon", "Flamengo", "Wolfsburg", "Freiburg",
+                            "Getafe", "Union Berlin", "Nottm Forest", "Lille", "PSV",
+                            "River Plate", "RC Lens", "Girona", "Crystal Palace", "M'gladbach",
+                            "Leicester City", "Al Nassr", "Bologna", "Sassuolo", "Atletico Mineiro",
+                            "Mallorca", "Monza", "Mainz", "AEK", "Torino",
+                            "Boca Juniors", "Espanyol", "Almeria", "Cadiz", "Valencia",
+                            "Feyenoord", "Al Hilal"];
+
+        if ('4starTeamsNo' in vars) {
+            for (let i = 0; i < vars['4starTeamsNo']; i++) {
+                var index = Math.floor(Math.random()*fourStarTeams.length);
+                vars.teams.push(fourStarTeams[index]);
+                fourStarTeams.splice(index, 1);
+            }
+        } else {
+            vars.teams = vars.teams.concat(fourStarTeams);
+        }
+    }
+
     vars.teams = vars.teams.filter((item, pos) => vars.teams.indexOf(item) === pos);
+
+    console.log(vars.teams);
 
     if ('4atb' in vars) {
         var formations = ["451 Attack", "4141", "4231 Narrow", "4231 Wide", "451 Flat",

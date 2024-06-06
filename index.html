@@ -46,6 +46,14 @@
                 <input class="form-check-input" type="checkbox" value="" id="4.5starTeams" name="4.5starTeams">
                 <label class="form-check-label" for="4.5starTeams">4.5 Star</label>
             </div>
+            <div class="mb-3 form-check teamClubs" style="display: none">
+                <input class="form-check-input" type="checkbox" value="" id="4starTeams" name="4starTeams" onchange="toggle4starTeams(event)">
+                <label class="form-check-label" for="4starTeams">4 Star</label>
+            </div>
+            <div class="mb-3 form-check" id="4starHidden" style="display: none">
+                <label class="form-label" for="4starTeamsNo">Number of 4 Star Clubs</label>
+                <input class="form-control" type="number" value="" id="4starTeamsNo" name="4starTeamsNo" style="display: inline; width: 4rem">
+            </div>
             <div class="mb-3 form-check teamNations" style="display: none">
                 <input class="form-check-input" type="checkbox" value="" id="euroTeams" name="euroTeams">
                 <label class="form-check-label" for="euroTeams">Euro 2024</label>
