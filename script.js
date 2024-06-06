@@ -30,7 +30,6 @@ function togglePL(e) {
 }
 
 function toggleTeams(e) {
-    console.log(e.target.id);
     if (e.target.id == 'teamSwitchClubs') {
         var showDivs = document.getElementsByClassName('teamClubs');
         var hideDivs = document.getElementsByClassName('teamNations');

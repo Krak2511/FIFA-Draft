@@ -1,6 +1,7 @@
 var vars = {};
 
 var formationsUsed = [];
+var formationPositionsUsed = [];
 var draftPicks = [];
 var draftOrder = [];
 var currentRound = 0;
@@ -8,6 +9,49 @@ var currentRound = 0;
 var swapPicks = [];
 var swapRound = 0;
 var swapCount = 0;
+
+var stats = ["Acceleration", "Sprint Speed",
+            "Agility", "Balance", "Reactions", "Ball Control", "Dribbling", "Composure",
+            "Positioning", "Finishing", "Shot Power", "Long Shots", "Volleys", "Penalties",
+            "Interceptions", "Heading Accuracy", "Defensive Awareness", "Standing Tackle", "Sliding Tackle",
+            "Vision", "Crossing", "Free Kick Accuracy", "Short Passing", "Long Passing", "Curve",
+            "Jumping", "Stamina", "Strength", "Aggression"]
+var gkStats = ["Diving", "Handling", "Kicking", "Reflexes", "Speed", "Positioning"]
+var formationPositions = {
+    "451 Attack" : ["GK", "LB", "LCB", "RCB", "RB", "LM", "CM", "RM", "LAM", "RAM", "ST"],
+    "4141" : ["GK", "LB", "LCB", "RCB", "RB", "CDM", "LM", "LCM", "RCM", "RM", "ST"],
+    "4231 Narrow" : ["GK", "LB", "LCB", "RCB", "RB", "LDM", "RDM", "LAM", "CAM", "RAM", "ST"],
+    "4231 Wide" : ["GK", "LB", "LCB", "RCB", "RB", "LDM", "RDM", "LM", "RM", "CAM", "ST"],
+    "451 Flat" : ["GK", "LB", "LCB", "RCB", "RB", "LM", "LCM", "CCM", "RCM", "RM", "ST"],
+    "4411 Midfield" : ["GK", "LB", "LCB", "RCB", "RB", "LM", "LCM", "RCM", "RM", "CAM", "ST"],
+    "4411 Attack" : ["GK", "LB", "LCB", "RCB", "RB", "LM", "LCM", "RCM", "RM", "CF", "ST"],
+    "442 Holding" : ["GK", "LB", "LCB", "RCB", "RB", "LDM", "RDM", "LM", "RM", "LS", "RS"],
+    "442 Flat" : ["GK", "LB", "LCB", "RCB", "RB", "LM", "LCM", "RCM", "RM", "LS", "RS"],
+    "41212 Narrow" : ["GK", "LB", "LCB", "RCB", "RB", "CDM", "LCM", "RCM", "CAM", "LS", "RS"],
+    "41212 Wide" : ["GK", "LB", "LCB", "RCB", "RB", "CDM", "LM", "RM", "CAM", "LS", "RS"],
+    "4222" : ["GK", "LB", "LCB", "RCB", "RB", "LDM", "RDM", "LAM", "RAM", "LS", "RS"],
+    "4312" : ["GK", "LB", "LCB", "RCB", "RB", "LCM", "CCM", "RCM", "CAM", "LS", "RS"],
+    "4132" : ["GK", "LB", "LCB", "RCB", "RB", "CDM", "LM", "CM", "RM", "LS", "RS"],
+    "433 False 9" : ["GK", "LB", "LCB", "RCB", "RB", "CDM", "LCM", "RCM", "CF", "LW", "RW"],
+    "433 Attack" : ["GK", "LB", "LCB", "RCB", "RB", "LCM", "RCM", "CAM", "LW", "ST", "RW"],
+    "433 Defend" : ["GK", "LB", "LCB", "RCB", "RB", "LDM", "RDM", "CM", "LW", "ST", "RW"],
+    "433 Holding" : ["GK", "LB", "LCB", "RCB", "RB", "CDM", "LCM", "RCM", "LW", "ST", "RW"],
+    "433 Flat" : ["GK", "LB", "LCB", "RCB", "RB", "LCM", "CCM", "RCM", "LW", "ST", "RW"],
+    "4321" : ["GK", "LB", "LCB", "RCB", "RB", "LCM", "CCM", "RCM", "LF", "RF", "ST"],
+    "424" : ["GK", "LB", "LCB", "RCB", "RB", "LCM", "RCM", "LW", "LS", "RS", "RW"],
+    "541 Diamond" : ["GK", "LCB", "CCB", "RCB", "LWB", "RWB", "CDM", "LM", "RM", "CAM", "ST"],
+    "541 Flat" : ["GK", "LCB", "CCB", "RCB", "LWB", "RWB", "LM", "LCM", "RCM", "RM", "ST"],
+    "5212" : ["GK", "LCB", "CCB", "RCB", "LWB", "RWB", "LCM", "RCM", "CAM", "LS", "RS"],
+    "532" : ["GK", "LCB", "CCB", "RCB", "LWB", "RWB", "LCM", "CCM", "RCM", "LS", "RS"],
+    "523" : ["GK", "LCB", "CCB", "RCB", "LWB", "RWB", "LCM", "RCM", "LW", "ST", "RW"],
+    "3142" : ["GK", "LCB", "CCB", "RCB", "CDM", "LM", "LCM", "RCM", "RM", "LS", "RS"],
+    "3412" : ["GK", "LCB", "CCB", "RCB", "LM", "LCM", "RCM", "RM", "CAM", "LS", "RS"],
+    "352" : ["GK", "LCB", "CCB", "RCB", "LDM", "RDM", "LM", "RM", "CAM", "LS", "RS"],
+    "3511" : ["GK", "LCB", "CCB", "RCB", "LDM", "RDM", "LM", "CM", "RM", "CF", "ST"],
+    "3421" : ["GK", "LCB", "CCB", "RCB", "LM", "LCM", "RCM", "RM", "LF", "RF", "ST"],
+    "343 Flat" : ["GK", "LCB", "CCB", "RCB", "LM", "LCM", "RCM", "RM", "LW", "ST", "RW"],
+    "343 Diamond" : ["GK", "LCB", "CCB", "RCB", "CDM", "LM", "RM", "CAM", "LW", "ST", "RW"]
+}
 
 window.onload = function() {
     window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
@@ -69,6 +113,7 @@ window.onload = function() {
 
         var formation = formations[Math.floor(Math.random()*formations.length)];
         formationsUsed.push(formation);
+        formationPositionsUsed.push(formationPositions[formation]);
         formationRow.insertCell().outerHTML = '<th>' + formation + '</th>';
 
         draftPicks.push([]);
@@ -105,10 +150,20 @@ function draft() {
             row.insertCell();
         }
     }
+
     var player = draftOrder.shift();
     var team = pickTeam(player);
     draftPicks[vars.players.indexOf(player)].push(team);
-    document.querySelectorAll('#draftTable tbody tr')[currentRound].children[vars.players.indexOf(player)].innerHTML = team;
+    
+    var cell = document.querySelectorAll('#draftTable tbody tr')[currentRound].children[vars.players.indexOf(player)];
+    cell.innerHTML = team;
+
+    if ('positionLock' in vars) {
+        var index = Math.floor(Math.random()*formationPositionsUsed[vars.players.indexOf(player)].length);
+        cell.innerHTML += ' ' + formationPositionsUsed[vars.players.indexOf(player)][index];
+        formationPositionsUsed[vars.players.indexOf(player)].splice(index, 1);    
+    }
+    
     if (draftOrder.length % vars.players.length == 0) currentRound++;
     if (draftOrder.length == 0 && 'swaps' in vars) showSwaps();
 }
@@ -130,44 +185,6 @@ function showSwaps() {
         swapPicks.push(i);
     }
     swaps();
-}
-
-var stats = ["Acceleration", "Sprint Speed", "Agility", "Balance", "Reactions", "Ball Control", "Dribbling", "Composure", "Positioning", "Finishing", "Shot Power", "Long Shots", "Volleys", "Penalties", "Interceptions", "Heading Accuracy", "Defensive Awareness", "Standing Tackle", "Sliding Tackle", "Vision", "Crossing", "Free Kick Accuracy", "Short Passing", "Long Passing", "Curve", "Jumping", "Stamina", "Strength", "Aggression"]
-var gkStats = ["Diving", "Handling", "Kicking", "Reflexes", "Speed", "Positioning"]
-var formationPositions = {
-    "451 Attack" : ["GK", "LB", "LCB", "RCB", "RB", "LM", "CM", "RM", "LAM", "RAM", "ST"],
-    "4141" : ["GK", "LB", "LCB", "RCB", "RB", "CDM", "LM", "LCM", "RCM", "RM", "ST"],
-    "4231 Narrow" : ["GK", "LB", "LCB", "RCB", "RB", "LDM", "RDM", "LAM", "CAM", "RAM", "ST"],
-    "4231 Wide" : ["GK", "LB", "LCB", "RCB", "RB", "LDM", "RDM", "LM", "RM", "CAM", "ST"],
-    "451 Flat" : ["GK", "LB", "LCB", "RCB", "RB", "LM", "LCM", "CCM", "RCM", "RM", "ST"],
-    "4411 Midfield" : ["GK", "LB", "LCB", "RCB", "RB", "LM", "LCM", "RCM", "RM", "CAM", "ST"],
-    "4411 Attack" : ["GK", "LB", "LCB", "RCB", "RB", "LM", "LCM", "RCM", "RM", "CF", "ST"],
-    "442 Holding" : ["GK", "LB", "LCB", "RCB", "RB", "LDM", "RDM", "LM", "RM", "LS", "RS"],
-    "442 Flat" : ["GK", "LB", "LCB", "RCB", "RB", "LM", "LCM", "RCM", "RM", "LS", "RS"],
-    "41212 Narrow" : ["GK", "LB", "LCB", "RCB", "RB", "CDM", "LCM", "RCM", "CAM", "LS", "RS"],
-    "41212 Wide" : ["GK", "LB", "LCB", "RCB", "RB", "CDM", "LM", "RM", "CAM", "LS", "RS"],
-    "4222" : ["GK", "LB", "LCB", "RCB", "RB", "LDM", "RDM", "LAM", "RAM", "LS", "RS"],
-    "4312" : ["GK", "LB", "LCB", "RCB", "RB", "LCM", "CCM", "RCM", "CAM", "LS", "RS"],
-    "4132" : ["GK", "LB", "LCB", "RCB", "RB", "CDM", "LM", "CM", "RM", "LS", "RS"],
-    "433 False 9" : ["GK", "LB", "LCB", "RCB", "RB", "CDM", "LCM", "RCM", "CF", "LW", "RW"],
-    "433 Attack" : ["GK", "LB", "LCB", "RCB", "RB", "LCM", "RCM", "CAM", "LW", "ST", "RW"],
-    "433 Defend" : ["GK", "LB", "LCB", "RCB", "RB", "LDM", "RDM", "CM", "LW", "ST", "RW"],
-    "433 Holding" : ["GK", "LB", "LCB", "RCB", "RB", "CDM", "LCM", "RCM", "LW", "ST", "RW"],
-    "433 Flat" : ["GK", "LB", "LCB", "RCB", "RB", "LCM", "CCM", "RCM", "LW", "ST", "RW"],
-    "4321" : ["GK", "LB", "LCB", "RCB", "RB", "LCM", "CCM", "RCM", "LF", "RF", "ST"],
-    "424" : ["GK", "LB", "LCB", "RCB", "RB", "LCM", "RCM", "LW", "LS", "RS", "RW"],
-    "541 Diamond" : ["GK", "LCB", "CCB", "RCB", "LWB", "RWB", "CDM", "LM", "RM", "CAM", "ST"],
-    "541 Flat" : ["GK", "LCB", "CCB", "RCB", "LWB", "RWB", "LM", "LCM", "RCM", "RM", "ST"],
-    "5212" : ["GK", "LCB", "CCB", "RCB", "LWB", "RWB", "LCM", "RCM", "CAM", "LS", "RS"],
-    "532" : ["GK", "LCB", "CCB", "RCB", "LWB", "RWB", "LCM", "CCM", "RCM", "LS", "RS"],
-    "523" : ["GK", "LCB", "CCB", "RCB", "LWB", "RWB", "LCM", "RCM", "LW", "ST", "RW"],
-    "3142" : ["GK", "LCB", "CCB", "RCB", "CDM", "LM", "LCM", "RCM", "RM", "LS", "RS"],
-    "3412" : ["GK", "LCB", "CCB", "RCB", "LM", "LCM", "RCM", "RM", "CAM", "LS", "RS"],
-    "352" : ["GK", "LCB", "CCB", "RCB", "LDM", "RDM", "LM", "RM", "CAM", "LS", "RS"],
-    "3511" : ["GK", "LCB", "CCB", "RCB", "LDM", "RDM", "LM", "CM", "RM", "CF", "ST"],
-    "3421" : ["GK", "LCB", "CCB", "RCB", "LM", "LCM", "RCM", "RM", "LF", "RF", "ST"],
-    "343 Flat" : ["GK", "LCB", "CCB", "RCB", "LM", "LCM", "RCM", "RM", "LW", "ST", "RW"],
-    "343 Diamond" : ["GK", "LCB", "CCB", "RCB", "CDM", "LM", "RM", "CAM", "LW", "ST", "RW"]
 }
 
 function swaps() {
