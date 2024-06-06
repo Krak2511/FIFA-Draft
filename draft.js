@@ -168,7 +168,6 @@ function draft() {
     
     if (draftOrder.length % vars.players.length == 0) currentRound++;
     if (draftOrder.length == 0 && 'swaps' in vars) showSwaps();
-    draft();
 }
 
 function pickTeam(player) {
