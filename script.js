@@ -19,16 +19,6 @@ function toggleSwaps(e) {
     }
 }
 
-function togglePL(e) {
-    if (e.target.checked) {
-        if (e.target.id == 'plTeams23') {
-            document.getElementById('plTeams24').checked = false;
-        } else if (e.target.id == 'plTeams24') {
-            document.getElementById('plTeams23').checked = false;
-        }
-    }
-}
-
 function toggleTeams(e) {
     if (e.target.id == 'teamSwitchClubs') {
         var showDivs = document.getElementsByClassName('teamClubs');

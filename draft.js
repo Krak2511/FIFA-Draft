@@ -67,26 +67,51 @@ window.onload = function() {
 
     if ('plTeams23' in vars) {
         vars.teams = vars.teams.concat(["Man City", "Arsenal", "Liverpool", "Aston Villa", "Tottenham",
-                    "Chelsea", "Newcastle", "Man United", "West Ham", "Crystal Palace",
-                    "Brighton", "Bournemouth", "Fulham", "Wolves", "Everton",
-                    "Brentford", "Nottm Forest", "Luton Town", "Burnley", "Sheffield United"]);
+                                        "Chelsea", "Newcastle", "Man United", "West Ham", "Crystal Palace",
+                                        "Brighton", "Bournemouth", "Fulham", "Wolves", "Everton",
+                                        "Brentford", "Nottm Forest", "Luton Town", "Burnley", "Sheffield United"]);
     }
 
     if ('plTeams24' in vars) {
         vars.teams = vars.teams.concat(["Man City", "Arsenal", "Liverpool", "Aston Villa", "Tottenham",
-                    "Chelsea", "Newcastle", "Man United", "West Ham", "Crystal Palace",
-                    "Brighton", "Bournemouth", "Fulham", "Wolves", "Everton",
-                    "Brentford", "Nottm Forest", "Leicester City", "Ipswich Town", "Southampton"]);
+                                        "Chelsea", "Newcastle", "Man United", "West Ham", "Crystal Palace",
+                                        "Brighton", "Bournemouth", "Fulham", "Wolves", "Everton",
+                                        "Brentford", "Nottm Forest", "Leicester City", "Ipswich Town", "Southampton"]);
     }
 
     if ('euroTeams' in vars) {
         vars.teams = vars.teams.concat(["Germany", "Scotland", "Hungary", "Switzerland",
-                    "Spain", "Croatia", "Italy", "Albania",
-                    "Slovenia", "Denmark", "Serbia", "England",
-                    "Poland", "Netherlands", "Austria", "France",
-                    "Belgium", "Slovakia", "Romania", "Ukraine",
-                    "Turkey", "Georgia", "Portugal", "Czech Republic"]);
+                                        "Spain", "Croatia", "Italy", "Albania",
+                                        "Slovenia", "Denmark", "Serbia", "England",
+                                        "Poland", "Netherlands", "Austria", "France",
+                                        "Belgium", "Slovakia", "Romania", "Ukraine",
+                                        "Turkey", "Georgia", "Portugal", "Czech Republic"]);
     }
+
+    if ('worldCupTeams' in vars) {
+        vars.teams = vars.teams.concat(["Netherlands", "Senegal", "Ecuador", "Qatar",
+                                        "England", "USA", "Iran", "Wales",
+                                        "Argentina", "Poland", "Mexico", "Saudi Arabia",
+                                        "France", "Australia", "Tunisia", "Denmark",
+                                        "Japan", "Spain", "Germany", "Costa Rica",
+                                        "Morocco", "Croatia", "Belgium", "Canada",
+                                        "Brazil", "Switzerland", "Cameroon", "Serbia",
+                                        "Portugal", "South Korea", "Uruguay", "Ghana"]);
+    }
+
+    if ('5starTeams' in vars) {
+        vars.teams = vars.teams.concat(["Man City", "Real Madrid", "PSG", "Barcelona", "Bayern",
+                                        "Atletico Madrid", "Liverpool"]);
+    }
+
+    if ('4.5starTeams' in vars) {
+        vars.teams = vars.teams.concat(["Arsenal", "Inter", "Man United", "Tottenham", "Dortmund",
+                                        "Napoli", "Juventus", "Newcastle", "Milan", "Chelsea",
+                                        "RB Leipzig", "Lazio", "Roma", "Sevilla", "Leverkusen",
+                                        "Aston Villa", "Real Betis", "Real Sociedad", "Villarreal", "Athletic Bilbao"]);
+    }
+
+    vars.teams = vars.teams.filter((item, pos) => vars.teams.indexOf(item) === pos);
 
     if ('4atb' in vars) {
         var formations = ["451 Attack", "4141", "4231 Narrow", "4231 Wide", "451 Flat",
