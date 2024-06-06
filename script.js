@@ -18,3 +18,31 @@ function toggleSwaps(e) {
         document.getElementById("swapsHidden").style.display = 'none';
     }
 }
+
+function togglePL(e) {
+    if (e.target.checked) {
+        if (e.target.id == 'plTeams23') {
+            document.getElementById('plTeams24').checked = false;
+        } else if (e.target.id == 'plTeams24') {
+            document.getElementById('plTeams23').checked = false;
+        }
+    }
+}
+
+function toggleTeams(e) {
+    console.log(e.target.id);
+    if (e.target.id == 'teamSwitchClubs') {
+        var showDivs = document.getElementsByClassName('teamClubs');
+        var hideDivs = document.getElementsByClassName('teamNations');
+    } else if (e.target.id == 'teamSwitchNations') {
+        var showDivs = document.getElementsByClassName('teamNations');
+        var hideDivs = document.getElementsByClassName('teamClubs');
+    }
+
+    for (let i = 0; i < showDivs.length; i++) {
+        showDivs[i].style.display = 'block';
+    }
+    for (let i = 0; i < hideDivs.length; i++) {
+        hideDivs[i].style.display = 'none';
+    }
+}

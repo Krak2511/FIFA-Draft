@@ -22,33 +22,42 @@
                 <label class="form-label" for="teams">Teams</label>
                 <textarea class="form-control" id="teams" name="teams" rows="4" placeholder="Enter the teams, with each team on a separate line"></textarea>
             </div>
-            <div class="mb-3 form-check">
-                <input class="form-check-input" type="checkbox" value="" id="plTeams23" name="plTeams23">
+            <div class="mb-3 form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="teamSwitch" id="teamSwitchClubs" value="clubs" onchange="toggleTeams(event)">
+                <label class="form-check-label" for="teamSwitchClubs">Clubs</label>
+            </div>
+            <div class="mb-3 form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="teamSwitch" id="teamSwitchNations" value="nations" onchange="toggleTeams(event)">
+                <label class="form-check-label" for="teamSwitchNations">Nations</label>
+            </div>
+            <div class="mb-3 form-check teamClubs" style="display: none">
+                <input class="form-check-input" type="checkbox" value="" id="plTeams23" name="plTeams23" onchange="togglePL(event)">
                 <label class="form-check-label" for="plTeams23">Premier League Clubs (2023-24)</label>
             </div>
-            <div class="mb-3 form-check">
-                <input class="form-check-input" type="checkbox" value="" id="plTeams24" name="plTeams24">
+            <div class="mb-3 form-check teamClubs" style="display: none">
+                <input class="form-check-input" type="checkbox" value="" id="plTeams24" name="plTeams24" onchange="togglePL(event)">
                 <label class="form-check-label" for="plTeams24">Premier League Clubs (2024-25)</label>
             </div>
-            <div class="mb-3 form-check">
+            <div class="mb-3 form-check teamNations" style="display: none">
                 <input class="form-check-input" type="checkbox" value="" id="euroTeams" name="euroTeams">
                 <label class="form-check-label" for="euroTeams">Euro 2024 Nations</label>
             </div>
+            <label class="mb-3 form-label" style="display: block">Options</label>
             <div class="mb-3 form-check">
                 <input class="form-check-input" type="checkbox" value="" id="4atb" name="4atb">
                 <label class="form-check-label" for="4atb">4 at the back formations only</label>
             </div>
-            <!-- <div class="mb-3">
+            <div class="mb-3">
                 <input class="form-check-input" type="checkbox" value="" id="positionLock" name="positionLock">
                 <label class="form-check-label" for="positionLock">Position lock</label>
-            </div> -->
+            </div>
             <div class="mb-3 form-check">
                 <input class="form-check-input" type="checkbox" value="" id="swaps" name="swaps" onchange="toggleSwaps(event)">
                 <label class="form-check-label" for="swaps">Swaps</label>
             </div>
             <div class="mb-3" id="swapsHidden" style="display: none">
                 <label class="form-label" for="swapsNo">Number of swaps</label>
-                <input class="form-control" type="number" value="" id="swapsNo" name="swapsNo">
+                <input class="form-control" type="number" value="" id="swapsNo" name="swapsNo" style="display: inline; width: 4rem">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
