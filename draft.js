@@ -1052,14 +1052,14 @@ window.onload = function() {
         vars.teams = vars.teams.concat(["Manchester City", "Arsenal", "Liverpool", "Aston Villa", "Spurs",
                                         "Chelsea", "Newcastle", "Manchester Utd", "West Ham", "Crystal Palace",
                                         "Brighton", "Bournemouth", "Fulham", "Wolves", "Everton",
-                                        "Brentford", "Nottm Forest", "Luton Town", "Burnley", "Sheffield United"]);
+                                        "Brentford", "Nott'm Forest", "Luton Town", "Burnley", "Sheffield United"]);
     }
 
     if ('plTeams24' in vars) {
         vars.teams = vars.teams.concat(["Manchester City", "Arsenal", "Liverpool", "Aston Villa", "Spurs",
                                         "Chelsea", "Newcastle", "Manchester Utd", "West Ham", "Crystal Palace",
                                         "Brighton", "Bournemouth", "Fulham", "Wolves", "Everton",
-                                        "Brentford", "Nottm Forest", "Leicester City", "Ipswich Town", "Southampton"]);
+                                        "Brentford", "Nott'm Forest", "Leicester City", "Ipswich Town", "Southampton"]);
     }
 
     if ('euroTeams' in vars) {
@@ -1101,7 +1101,7 @@ window.onload = function() {
                             "Brighton", "Brentford", "Al Ittihad", "Monaco", "Palmeiras",
                             "Ajax", "Hoffenheim", "Fenerbahce", "Celta Vigo", "Rayo Vallecano",
                             "Nice", "Lyon", "Flamengo", "Wolfsburg", "Freiburg",
-                            "Getafe", "Union Berlin", "Nottm Forest", "Lille", "PSV",
+                            "Getafe", "Union Berlin", "Nott'm Forest", "Lille", "PSV",
                             "River Plate", "RC Lens", "Girona", "Crystal Palace", "M'gladbach",
                             "Leicester City", "Al Nassr", "Bologna", "Sassuolo", "Atletico Mineiro",
                             "Mallorca", "Monza", "Mainz", "AEK", "Torino",
