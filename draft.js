@@ -113,7 +113,7 @@ window.onload = function() {
 
         var formation = formations[Math.floor(Math.random()*formations.length)];
         formationsUsed.push(formation);
-        formationPositionsUsed.push(formationPositions[formation]);
+        formationPositionsUsed.push([].concat(formationPositions[formation]));
         formationRow.insertCell().outerHTML = '<th>' + formation + '</th>';
 
         draftPicks.push([]);
@@ -160,12 +160,15 @@ function draft() {
 
     if ('positionLock' in vars) {
         var index = Math.floor(Math.random()*formationPositionsUsed[vars.players.indexOf(player)].length);
+        console.log(formationPositionsUsed[vars.players.indexOf(player)]);
+        console.log(index);
         cell.innerHTML += ' ' + formationPositionsUsed[vars.players.indexOf(player)][index];
-        formationPositionsUsed[vars.players.indexOf(player)].splice(index, 1);    
+        formationPositionsUsed[vars.players.indexOf(player)].splice(index, 1);
     }
     
     if (draftOrder.length % vars.players.length == 0) currentRound++;
     if (draftOrder.length == 0 && 'swaps' in vars) showSwaps();
+    draft();
 }
 
 function pickTeam(player) {
