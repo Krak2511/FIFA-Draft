@@ -137,9 +137,7 @@ window.onload = function() {
     }
 
     vars.teams = vars.teams.filter((item, pos) => vars.teams.indexOf(item) === pos);
-
-    console.log(vars.teams);
-
+    
     if ('4atb' in vars) {
         var formations = ["451 Attack", "4141", "4231 Narrow", "4231 Wide", "451 Flat",
                         "4411 Midfield", "4411 Attack", "442 Holding", "442 Flat",
