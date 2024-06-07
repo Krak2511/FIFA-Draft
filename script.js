@@ -9,6 +9,60 @@ window.onload = function() {
         this.style.height = 'auto';
         this.style.height = (this.scrollHeight) + "px";
     }
+
+    const form = document.getElementsByTagName('form')[0];
+    form.addEventListener('submit', event => {
+        if (!validate() || !form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+        } else {
+            form.classList.add('was-validated');
+        }
+    }, false);
+}
+
+function validate() {
+    var valid = true;
+
+    var players = document.getElementById('players');
+    if (players.value.split("\n").length < 4) {
+        players.classList.add('is-invalid');
+        players.classList.remove('is-valid');
+        valid = false;
+    } else {
+        players.classList.remove('is-invalid');
+        players.classList.add('is-valid');
+    }
+
+    var teams = document.getElementById('teams');
+    var clubs = document.querySelectorAll('div.teamClubs input');
+    var clubCount = 0;
+    clubs.forEach(club => {if (club.checked) clubCount++;});
+    var nations = document.querySelectorAll('div.teamNations input');
+    var nationCount = 0;
+    nations.forEach(nation => {if (nation.checked) nationCount++;});
+    if (teams.value.split("\n").length < 11 && !clubCount && !nationCount) {
+        teams.classList.add('is-invalid');
+        teams.classList.add('is-valid');
+        valid = false;
+    } else {
+        teams.classList.remove('is-invalid');
+        teams.classList.add('is-valid');
+    }
+
+    var swaps = document.getElementById('swaps');
+    var swapsNo = document.getElementById('swapsNo');
+    if (swaps.checked && !swapsNo.value) {
+        swapsNo.style.width = '6rem';
+        swapsNo.classList.add('is-invalid');
+        swapsNo.classList.add('is-valid');
+        valid = false;
+    } else {
+        swapsNo.classList.remove('is-invalid');
+        swapsNo.classList.add('is-valid');
+    }
+
+    return valid;
 }
 
 window.addEventListener('unload', function(event) {
