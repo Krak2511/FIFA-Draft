@@ -1188,7 +1188,16 @@ function shuffle(array) {
 }
 
 function draft() {
-    if (draftOrder.length == 0) return;
+    if (draftOrder.length == 0) {
+        if ('swaps' in vars) {
+            showSwaps();
+        } else {
+            var params = new URLSearchParams(window.location.search);
+            params.delete('teams');
+            window.location.href = 'fixtures.html?' + params.toString();    
+        }
+        return;
+    }
     if (draftOrder.length % vars.players.length == 0) {
         var row = document.querySelector('#draftTable tbody').insertRow(currentRound);
         for (let i = 0; i < vars.players.length; i++) {
@@ -1245,7 +1254,6 @@ function draft() {
     }
     
     if (draftOrder.length % vars.players.length == 0) currentRound++;
-    if (draftOrder.length == 0 && 'swaps' in vars) showSwaps();
 }
 
 function pickTeam(player) {
