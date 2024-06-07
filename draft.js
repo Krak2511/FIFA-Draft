@@ -1209,8 +1209,12 @@ function draft() {
     var team = pickTeam(player);
     draftPicks[vars.players.indexOf(player)].push(team);
     
-    var positionList = '';
-    if ('positionList' in vars) {
+    var positionList = '';    
+    if ('positionLock' in vars) {
+        var index = Math.floor(Math.random()*formationPositionsUsed[vars.players.indexOf(player)].length);
+        positionList = formationPositionsUsed[vars.players.indexOf(player)][index];
+        formationPositionsUsed[vars.players.indexOf(player)].splice(index, 1);
+    } else if ('positionList' in vars) {
         positionList = checkboxList[vars.players.indexOf(player)];
         positionList.forEach(pos => {
             var posIndex = positionList.indexOf(pos);
@@ -1231,26 +1235,35 @@ function draft() {
     }
 
     var cell = document.querySelectorAll('#draftTable tbody tr')[currentRound].children[vars.players.indexOf(player)];
+    var display = ('positionLock' in vars) ? (team + ' ' + positionList) : team;
+    if ('positionLock' in vars) {
+        if (positionList == 'LCB') positionList = 'CB';
+        else if (positionList == 'RCB') positionList = 'CB';
+        else if (positionList == 'LDM') positionList = 'CDM';
+        else if (positionList == 'RDM') positionList = 'CDM';
+        else if (positionList == 'LCM') positionList = 'CM';
+        else if (positionList == 'RCM') positionList = 'CM';
+        else if (positionList == 'LAM') positionList = 'CAM';
+        else if (positionList == 'RAM') positionList = 'CAM';
+        else if (positionList == 'LF') positionList = 'CF';
+        else if (positionList == 'RF') positionList = 'CF';
+        else if (positionList == 'LS') positionList = 'ST';
+        else if (positionList == 'RS') positionList = 'ST';
+    }
     if (vars.teamSwitch == 'nations' && nationIDs[team]) {
-        if ('positionList' in vars) {
-            cell.innerHTML = '<a target="_blank" href="https://www.futbin.com/players?page=1&version=gold&pos_type=all&nation=' + nationIDs[team] + '&position=' + positionList + '" class="link-dark link-underline-opacity-0 link-underline-opacity-100-hover">' + team + '</a>';
+        if (positionList) {
+            cell.innerHTML = '<a target="_blank" href="https://www.futbin.com/players?page=1&version=gold&pos_type=all&nation=' + nationIDs[team] + '&position=' + positionList + '" class="link-dark link-underline-opacity-0 link-underline-opacity-100-hover">' + display + '</a>';
         } else {
-            cell.innerHTML = '<a target="_blank" href="https://www.futbin.com/players?page=1&version=gold&pos_type=all&nation=' + nationIDs[team] + '" class="link-dark link-underline-opacity-0 link-underline-opacity-100-hover">' + team + '</a>';
+            cell.innerHTML = '<a target="_blank" href="https://www.futbin.com/players?page=1&version=gold&pos_type=all&nation=' + nationIDs[team] + '" class="link-dark link-underline-opacity-0 link-underline-opacity-100-hover">' + display + '</a>';
         }
     } else if (vars.teamSwitch == 'clubs' && clubIDs[team]) {
-        if ('positionList' in vars) {
-            cell.innerHTML = '<a target="_blank" href="https://www.futbin.com/players?page=1&version=gold&pos_type=all&club=' + clubIDs[team] + '&position=' + positionList + '" class="link-dark link-underline-opacity-0 link-underline-opacity-100-hover">' + team + '</a>';
+        if (positionList) {
+            cell.innerHTML = '<a target="_blank" href="https://www.futbin.com/players?page=1&version=gold&pos_type=all&club=' + clubIDs[team] + '&position=' + positionList + '" class="link-dark link-underline-opacity-0 link-underline-opacity-100-hover">' + display + '</a>';
         } else {
-            cell.innerHTML = '<a target="_blank" href="https://www.futbin.com/players?page=1&version=gold&pos_type=all&club=' + clubIDs[team] + '" class="link-dark link-underline-opacity-0 link-underline-opacity-100-hover">' + team + '</a>';
+            cell.innerHTML = '<a target="_blank" href="https://www.futbin.com/players?page=1&version=gold&pos_type=all&club=' + clubIDs[team] + '" class="link-dark link-underline-opacity-0 link-underline-opacity-100-hover">' + display + '</a>';
         }
     } else {
-        cell.innerHTML = '<p class="link-dark">' + team + '</p>';
-    }
-
-    if ('positionLock' in vars) {
-        var index = Math.floor(Math.random()*formationPositionsUsed[vars.players.indexOf(player)].length);
-        cell.innerHTML += ' ' + formationPositionsUsed[vars.players.indexOf(player)][index];
-        formationPositionsUsed[vars.players.indexOf(player)].splice(index, 1);
+        cell.innerHTML = '<p class="link-dark">' + display + '</p>';
     }
     
     if (draftOrder.length % vars.players.length == 0) currentRound++;

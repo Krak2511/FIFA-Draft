@@ -11,6 +11,13 @@ window.onload = function() {
     }
 }
 
+window.addEventListener('unload', function(event) {
+    var teamSwitchClubs = document.getElementById('teamSwitchClubs');
+    teamSwitchClubs.checked = false;
+    var teamSwitchNations = document.getElementById('teamSwitchNations');
+    teamSwitchNations.checked = false;
+}, false);
+
 function toggleSwaps(e) {
     if (e.target.checked) {
         document.getElementById("swapsHidden").style.display = 'block';
@@ -33,6 +40,7 @@ function toggleTeams(e) {
     }
     for (let i = 0; i < hideDivs.length; i++) {
         hideDivs[i].style.display = 'none';
+        hideDivs[i].getElementsByTagName('input')[0].checked = false;
     }
 }
 
