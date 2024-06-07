@@ -15,15 +15,15 @@
         <!-- <h5>Setup</h5> -->
         <form action="draft.html" method="get" novalidate>
             <div class="mb-3">
-                <label class="form-label" for="players">Players</label>
-                <textarea class="form-control" id="players" name="players" rows="4" placeholder="Enter the players, with each name on a separate line"></textarea>
+                <label class="form-label" for="players">Players (0)</label>
+                <textarea class="form-control" id="players" name="players" rows="4" placeholder="Enter the players, with each name on a separate line" oninput="updateCount(event)"></textarea>
                 <div class="invalid-feedback">
                     Please enter at least 4 players.
                 </div>
             </div>
             <div class="mb-3">
-                <label class="form-label" for="teams">Teams</label>
-                <textarea class="form-control" id="teams" name="teams" rows="4" placeholder="Enter the teams, with each team on a separate line"></textarea>
+                <label class="form-label" for="teams">Teams (0)</label>
+                <textarea class="form-control" id="teams" name="teams" rows="4" placeholder="Enter the teams, with each team on a separate line" oninput="updateCount(event)"></textarea>
                 <div class="invalid-feedback">
                     Please enter at least 11 teams or select at least one set of clubs/nations.
                 </div>

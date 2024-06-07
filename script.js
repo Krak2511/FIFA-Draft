@@ -105,3 +105,14 @@ function toggle4starTeams(e) {
         document.getElementById("4starHidden").style.display = 'none';
     }
 }
+
+function updateCount(e) {
+    var label = document.querySelector('label[for=' + e.target.id + ']');
+    var count = parseInt(label.innerText.match(/\(([^)]+)\)/)[1]);
+    count = e.target.value.split("\n").filter(Boolean).length;
+    if (e.target.id == 'players') {
+        label.innerText = 'Players (' + count.toString() + ')';
+    } else if (e.target.id == 'teams') {
+        label.innerText = 'Teams (' + count.toString() + ')';
+    }
+}
