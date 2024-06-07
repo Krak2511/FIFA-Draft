@@ -1191,6 +1191,7 @@ function draft() {
     if (draftOrder.length == 0) {
         if ('swaps' in vars) {
             showSwaps();
+            document.getElementById('draftButton').disabled = true;
         } else {
             var params = new URLSearchParams(window.location.search);
             params.delete('teams');
@@ -1281,7 +1282,7 @@ function pickTeam(player) {
 function showSwaps() {
     document.getElementById("swapsHeader").style.display = 'block';
     document.getElementById("swapsTable").style.display = 'table';
-    for (let i = 0; i < 11; i++) {
+    for (let i = (('swapsGKs' in vars) ? 1 : 0); i < 11; i++) {
         swapPicks.push(i);
         swapPicks.push(i);
     }

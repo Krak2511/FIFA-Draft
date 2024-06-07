@@ -85,7 +85,11 @@
                 <input class="form-check-input" type="checkbox" value="" id="swaps" name="swaps" onchange="toggleSwaps(event)">
                 <label class="form-check-label" for="swaps">Swaps</label>
             </div>
-            <div class="mb-3" id="swapsHidden" style="display: none">
+            <div class="mb-3 form-check swapsHidden" style="display: none">
+                <input class="form-check-input" type="checkbox" value="" id="swapsGKs" name="swapsGKs">
+                <label class="form-check-label" for="swapsGKs">Exclude GKs from swaps</label>
+            </div>
+            <div class="mb-3 swapsHidden" style="display: none">
                 <label class="form-label" for="swapsNo">Number of swaps</label>
                 <input class="form-control" type="number" value="" id="swapsNo" name="swapsNo" style="display: inline; width: 4rem">
                 <div class="invalid-feedback">

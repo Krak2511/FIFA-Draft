@@ -73,10 +73,13 @@ window.addEventListener('unload', function(event) {
 }, false);
 
 function toggleSwaps(e) {
-    if (e.target.checked) {
-        document.getElementById("swapsHidden").style.display = 'block';
-    } else {
-        document.getElementById("swapsHidden").style.display = 'none';
+    var swapsHidden = document.getElementsByClassName('swapsHidden');
+    for (let i = 0; i < swapsHidden.length; i++) {
+        if (e.target.checked) {
+            swapsHidden[i].style.display = 'block';
+        } else {
+            swapsHidden[i].style.display = 'none';
+        }
     }
 }
 
