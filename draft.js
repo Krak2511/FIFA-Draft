@@ -2,6 +2,7 @@ var vars = {};
 
 var formationsUsed = [];
 var formationPositionsUsed = [];
+var checkboxList = [];
 var draftPicks = [];
 var draftOrder = [];
 var currentRound = 0;
@@ -22,7 +23,7 @@ var formationPositions = {
     "4141" : ["GK", "LB", "LCB", "RCB", "RB", "CDM", "LM", "LCM", "RCM", "RM", "ST"],
     "4231 Narrow" : ["GK", "LB", "LCB", "RCB", "RB", "LDM", "RDM", "LAM", "CAM", "RAM", "ST"],
     "4231 Wide" : ["GK", "LB", "LCB", "RCB", "RB", "LDM", "RDM", "LM", "RM", "CAM", "ST"],
-    "451 Flat" : ["GK", "LB", "LCB", "RCB", "RB", "LM", "LCM", "CCM", "RCM", "RM", "ST"],
+    "451 Flat" : ["GK", "LB", "LCB", "RCB", "RB", "LM", "LCM", "CM", "RCM", "RM", "ST"],
     "4411 Midfield" : ["GK", "LB", "LCB", "RCB", "RB", "LM", "LCM", "RCM", "RM", "CAM", "ST"],
     "4411 Attack" : ["GK", "LB", "LCB", "RCB", "RB", "LM", "LCM", "RCM", "RM", "CF", "ST"],
     "442 Holding" : ["GK", "LB", "LCB", "RCB", "RB", "LDM", "RDM", "LM", "RM", "LS", "RS"],
@@ -30,19 +31,19 @@ var formationPositions = {
     "41212 Narrow" : ["GK", "LB", "LCB", "RCB", "RB", "CDM", "LCM", "RCM", "CAM", "LS", "RS"],
     "41212 Wide" : ["GK", "LB", "LCB", "RCB", "RB", "CDM", "LM", "RM", "CAM", "LS", "RS"],
     "4222" : ["GK", "LB", "LCB", "RCB", "RB", "LDM", "RDM", "LAM", "RAM", "LS", "RS"],
-    "4312" : ["GK", "LB", "LCB", "RCB", "RB", "LCM", "CCM", "RCM", "CAM", "LS", "RS"],
+    "4312" : ["GK", "LB", "LCB", "RCB", "RB", "LCM", "CM", "RCM", "CAM", "LS", "RS"],
     "4132" : ["GK", "LB", "LCB", "RCB", "RB", "CDM", "LM", "CM", "RM", "LS", "RS"],
     "433 False 9" : ["GK", "LB", "LCB", "RCB", "RB", "CDM", "LCM", "RCM", "CF", "LW", "RW"],
     "433 Attack" : ["GK", "LB", "LCB", "RCB", "RB", "LCM", "RCM", "CAM", "LW", "ST", "RW"],
     "433 Defend" : ["GK", "LB", "LCB", "RCB", "RB", "LDM", "RDM", "CM", "LW", "ST", "RW"],
     "433 Holding" : ["GK", "LB", "LCB", "RCB", "RB", "CDM", "LCM", "RCM", "LW", "ST", "RW"],
-    "433 Flat" : ["GK", "LB", "LCB", "RCB", "RB", "LCM", "CCM", "RCM", "LW", "ST", "RW"],
-    "4321" : ["GK", "LB", "LCB", "RCB", "RB", "LCM", "CCM", "RCM", "LF", "RF", "ST"],
+    "433 Flat" : ["GK", "LB", "LCB", "RCB", "RB", "LCM", "CM", "RCM", "LW", "ST", "RW"],
+    "4321" : ["GK", "LB", "LCB", "RCB", "RB", "LCM", "CM", "RCM", "LF", "RF", "ST"],
     "424" : ["GK", "LB", "LCB", "RCB", "RB", "LCM", "RCM", "LW", "LS", "RS", "RW"],
     "541 Diamond" : ["GK", "LCB", "CB", "RCB", "LWB", "RWB", "CDM", "LM", "RM", "CAM", "ST"],
     "541 Flat" : ["GK", "LCB", "CB", "RCB", "LWB", "RWB", "LM", "LCM", "RCM", "RM", "ST"],
     "5212" : ["GK", "LCB", "CB", "RCB", "LWB", "RWB", "LCM", "RCM", "CAM", "LS", "RS"],
-    "532" : ["GK", "LCB", "CB", "RCB", "LWB", "RWB", "LCM", "CCM", "RCM", "LS", "RS"],
+    "532" : ["GK", "LCB", "CB", "RCB", "LWB", "RWB", "LCM", "CM", "RCM", "LS", "RS"],
     "523" : ["GK", "LCB", "CB", "RCB", "LWB", "RWB", "LCM", "RCM", "LW", "ST", "RW"],
     "3142" : ["GK", "LCB", "CB", "RCB", "CDM", "LM", "LCM", "RCM", "RM", "LS", "RS"],
     "3412" : ["GK", "LCB", "CB", "RCB", "LM", "LCM", "RCM", "RM", "CAM", "LS", "RS"],
@@ -1140,14 +1141,25 @@ window.onload = function() {
     shuffle(vars.players);
     const playerRows = document.getElementsByClassName('playerRow');
     const formationRow = document.getElementById('formationRow');
+    const positionRow = document.getElementById('positionRow');
     vars.players.forEach(player => {
         playerRows[1].insertCell().outerHTML = '<th scope="col">' + player + '</th>';
         playerRows[0].insertCell().outerHTML = '<th scope="col">' + player + '</th>';
 
         var formation = formations[Math.floor(Math.random()*formations.length)];
         formationsUsed.push(formation);
-        formationPositionsUsed.push([].concat(formationPositions[formation]));
+        var playerFormationPositions = formationPositions[formation].slice();
+        formationPositionsUsed.push(playerFormationPositions);
+        checkboxList.push(playerFormationPositions);
         formationRow.insertCell().outerHTML = '<th>' + formation + '</th>';
+
+        if ('positionList' in vars) {
+            var posCell = positionRow.insertCell();
+            playerFormationPositions.forEach(pos => {
+                var id = vars.players.indexOf(player) + '-' + pos;
+                posCell.innerHTML += '<div class="mb-1 form-check"><input class="form-check-input" type="checkbox" value="" id="' + id + '" name="' + id + '" onchange="posCheckbox(event)"><label class="form-check-label" for="' + id + '">' + pos + '</label></div>';
+            })
+        }
 
         draftPicks.push([]);
     });
@@ -1178,7 +1190,7 @@ function shuffle(array) {
 function draft() {
     if (draftOrder.length == 0) return;
     if (draftOrder.length % vars.players.length == 0) {
-        var row = document.querySelector('#draftTable tbody').insertRow();
+        var row = document.querySelector('#draftTable tbody').insertRow(currentRound);
         for (let i = 0; i < vars.players.length; i++) {
             row.insertCell();
         }
@@ -1188,11 +1200,40 @@ function draft() {
     var team = pickTeam(player);
     draftPicks[vars.players.indexOf(player)].push(team);
     
+    var positionList = '';
+    if ('positionList' in vars) {
+        positionList = checkboxList[vars.players.indexOf(player)];
+        positionList.forEach(pos => {
+            var posIndex = positionList.indexOf(pos);
+            if (pos == 'LCB') positionList[posIndex] = 'CB';
+            else if (pos == 'RCB') positionList[posIndex] = 'CB';
+            else if (pos == 'LDM') positionList[posIndex] = 'CDM';
+            else if (pos == 'RDM') positionList[posIndex] = 'CDM';
+            else if (pos == 'LCM') positionList[posIndex] = 'CM';
+            else if (pos == 'RCM') positionList[posIndex] = 'CM';
+            else if (pos == 'LAM') positionList[posIndex] = 'CAM';
+            else if (pos == 'RAM') positionList[posIndex] = 'CAM';
+            else if (pos == 'LF') positionList[posIndex] = 'CF';
+            else if (pos == 'RF') positionList[posIndex] = 'CF';
+            else if (pos == 'LS') positionList[posIndex] = 'ST';
+            else if (pos == 'RS') positionList[posIndex] = 'ST';
+        })
+        positionList = positionList.join(',');
+    }
+
     var cell = document.querySelectorAll('#draftTable tbody tr')[currentRound].children[vars.players.indexOf(player)];
     if (vars.teamSwitch == 'nations' && nationIDs[team]) {
-        cell.innerHTML = '<a target="_blank" href="https://www.futbin.com/players?page=1&nation=' + nationIDs[team] + '&version=gold&pos_type=all" class="link-dark link-underline-opacity-0 link-underline-opacity-100-hover">' + team + '</a>';
+        if ('positionList' in vars) {
+            cell.innerHTML = '<a target="_blank" href="https://www.futbin.com/players?page=1&version=gold&pos_type=all&nation=' + nationIDs[team] + '&position=' + positionList + '" class="link-dark link-underline-opacity-0 link-underline-opacity-100-hover">' + team + '</a>';
+        } else {
+            cell.innerHTML = '<a target="_blank" href="https://www.futbin.com/players?page=1&version=gold&pos_type=all&nation=' + nationIDs[team] + '" class="link-dark link-underline-opacity-0 link-underline-opacity-100-hover">' + team + '</a>';
+        }
     } else if (vars.teamSwitch == 'clubs' && clubIDs[team]) {
-        cell.innerHTML = '<a target="_blank" href="https://www.futbin.com/players?page=1&club=' + clubIDs[team] + '&version=gold&pos_type=all" class="link-dark link-underline-opacity-0 link-underline-opacity-100-hover">' + team + '</a>';
+        if ('positionList' in vars) {
+            cell.innerHTML = '<a target="_blank" href="https://www.futbin.com/players?page=1&version=gold&pos_type=all&club=' + clubIDs[team] + '&position=' + positionList + '" class="link-dark link-underline-opacity-0 link-underline-opacity-100-hover">' + team + '</a>';
+        } else {
+            cell.innerHTML = '<a target="_blank" href="https://www.futbin.com/players?page=1&version=gold&pos_type=all&club=' + clubIDs[team] + '" class="link-dark link-underline-opacity-0 link-underline-opacity-100-hover">' + team + '</a>';
+        }
     } else {
         cell.innerHTML = '<p class="link-dark">' + team + '</p>';
     }
@@ -1267,5 +1308,15 @@ function swapYes() {
         var params = new URLSearchParams(window.location.search);
         params.delete('teams');
         window.location.href = 'fixtures.html?' + params.toString();
+    }
+}
+
+function posCheckbox(e) {
+    var index = e.target.id.split('-')[0];
+    var pos = e.target.id.split('-')[1];
+    if (e.target.checked && checkboxList[index].includes(pos)) {
+        checkboxList[index].splice(checkboxList[index].indexOf(pos), 1);
+    } else if (!e.target.checked && !checkboxList[index].includes(pos)) {
+        checkboxList[index].push(pos);
     }
 }
