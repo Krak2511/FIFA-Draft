@@ -109,6 +109,16 @@ function toggle4starTeams(e) {
     }
 }
 
+function togglePosition(e) {
+    var positionList = document.getElementById('positionList');
+    var positionLock = document.getElementById('positionLock');
+    if (e.target.id == 'positionList' && e.target.checked) {
+        positionLock.checked = false;
+    } else if (e.target.id == 'positionLock' && e.target.checked) {
+        positionList.checked = false;
+    }
+}
+
 function updateCount(e) {
     var label = document.querySelector('label[for=' + e.target.id + ']');
     var count = parseInt(label.innerText.match(/\(([^)]+)\)/)[1]);
