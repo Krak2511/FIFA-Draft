@@ -1253,15 +1253,15 @@ function draft() {
     }
     if (vars.teamSwitch == 'nations' && nationIDs[team]) {
         if (positionList) {
-            cell.innerHTML = '<a target="_blank" href="https://www.futbin.com/players?page=1&version=gold&pos_type=all&nation=' + nationIDs[team] + '&position=' + positionList + '" class="link-dark link-underline-opacity-0 link-underline-opacity-100-hover">' + display + '</a>';
+            cell.innerHTML = '<a target="_blank" href="https://www.futbin.com/24/players?page=1&version=gold&pos_type=all&gender=men&nation=' + nationIDs[team] + '&position=' + positionList + '" class="link-dark link-underline-opacity-0 link-underline-opacity-100-hover">' + display + '</a>';
         } else {
-            cell.innerHTML = '<a target="_blank" href="https://www.futbin.com/players?page=1&version=gold&pos_type=all&nation=' + nationIDs[team] + '" class="link-dark link-underline-opacity-0 link-underline-opacity-100-hover">' + display + '</a>';
+            cell.innerHTML = '<a target="_blank" href="https://www.futbin.com/24/players?page=1&version=gold&pos_type=all&gender=men&nation=' + nationIDs[team] + '" class="link-dark link-underline-opacity-0 link-underline-opacity-100-hover">' + display + '</a>';
         }
     } else if (vars.teamSwitch == 'clubs' && clubIDs[team]) {
         if (positionList) {
-            cell.innerHTML = '<a target="_blank" href="https://www.futbin.com/players?page=1&version=gold&pos_type=all&club=' + clubIDs[team] + '&position=' + positionList + '" class="link-dark link-underline-opacity-0 link-underline-opacity-100-hover">' + display + '</a>';
+            cell.innerHTML = '<a target="_blank" href="https://www.futbin.com/24/players?page=1&version=gold&pos_type=all&gender=men&club=' + clubIDs[team] + '&position=' + positionList + '" class="link-dark link-underline-opacity-0 link-underline-opacity-100-hover">' + display + '</a>';
         } else {
-            cell.innerHTML = '<a target="_blank" href="https://www.futbin.com/players?page=1&version=gold&pos_type=all&club=' + clubIDs[team] + '" class="link-dark link-underline-opacity-0 link-underline-opacity-100-hover">' + display + '</a>';
+            cell.innerHTML = '<a target="_blank" href="https://www.futbin.com/24/players?page=1&version=gold&pos_type=all&gender=men&club=' + clubIDs[team] + '" class="link-dark link-underline-opacity-0 link-underline-opacity-100-hover">' + display + '</a>';
         }
     } else {
         cell.innerHTML = '<p class="link-dark">' + display + '</p>';
