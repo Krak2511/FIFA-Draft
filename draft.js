@@ -2,7 +2,6 @@ var vars = {};
 
 var formationsUsed = [];
 var formationPositionsUsed = [];
-var checkboxList = [];
 var draftPicks = [];
 var draftOrder = [];
 var currentRound = 0;
@@ -1150,14 +1149,13 @@ window.onload = function() {
         formationsUsed.push(formation);
         var playerFormationPositions = formationPositions[formation].slice();
         formationPositionsUsed.push(playerFormationPositions);
-        checkboxList.push(playerFormationPositions);
         formationRow.insertCell().outerHTML = '<th>' + formation + '</th>';
 
         if ('positionList' in vars) {
             var posCell = positionRow.insertCell();
             playerFormationPositions.forEach(pos => {
                 var id = vars.players.indexOf(player) + '-' + pos;
-                posCell.innerHTML += '<div class="mb-1 form-check"><input class="form-check-input" type="checkbox" value="" id="' + id + '" name="' + id + '" onchange="posCheckbox(event)"><label class="form-check-label" for="' + id + '">' + pos + '</label></div>';
+                posCell.innerHTML += '<div class="mb-1 form-check"><input class="form-check-input" type="checkbox" value="" id="' + id + '" name="' + id + '"><label class="form-check-label" for="' + id + '">' + pos + '</label></div>';
             })
         }
 
@@ -1216,7 +1214,12 @@ function draft() {
         positionList = formationPositionsUsed[vars.players.indexOf(player)][index];
         formationPositionsUsed[vars.players.indexOf(player)].splice(index, 1);
     } else if ('positionList' in vars) {
-        positionList = checkboxList[vars.players.indexOf(player)];
+        var checkboxList = document.querySelectorAll('input[id^="' + vars.players.indexOf(player) + '-"]:not(:checked)');
+        positionList = [];
+        checkboxList.forEach(checkbox => {
+            var pos = checkbox.id.split('-')[1];
+            positionList.push(pos);
+        })
         positionList.forEach(pos => {
             var posIndex = positionList.indexOf(pos);
             if (pos == 'LCB') positionList[posIndex] = 'CB';
@@ -1330,15 +1333,5 @@ function swapYes() {
         var params = new URLSearchParams(window.location.search);
         params.delete('teams');
         window.location.href = 'fixtures.html?' + params.toString();
-    }
-}
-
-function posCheckbox(e) {
-    var index = e.target.id.split('-')[0];
-    var pos = e.target.id.split('-')[1];
-    if (e.target.checked && checkboxList[index].includes(pos)) {
-        checkboxList[index].splice(checkboxList[index].indexOf(pos), 1);
-    } else if (!e.target.checked && !checkboxList[index].includes(pos)) {
-        checkboxList[index].push(pos);
     }
 }
