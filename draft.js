@@ -1083,15 +1083,16 @@ window.onload = function() {
     }
 
     if ('5starTeams' in vars) {
-        vars.teams = vars.teams.concat(["Manchester City", "Real Madrid", "Paris SG", "Barcelona", "Bayern München",
-                                        "Atlético de Madrid", "Liverpool"]);
+        vars.teams = vars.teams.concat(["Manchester City", "Real Madrid", "Liverpool", "Bayern München", "Inter", "Barcelona",
+                                        "Arsenal", "Leverkusen", "Paris SG"]);
     }
 
     if ('4.5starTeams' in vars) {
-        vars.teams = vars.teams.concat(["Arsenal", "Inter", "Manchester Utd", "Spurs", "Borussia Dortmund",
-                                        "Napoli", "Juventus", "Newcastle Utd", "Milan", "Chelsea",
-                                        "RB Leipzig", "Lazio", "Roma", "Sevilla", "Leverkusen",
-                                        "Aston Villa", "Real Betis", "Real Sociedad", "Villarreal", "Athletic Club"]);
+        vars.teams = vars.teams.concat(["Atlético de Madrid", "Aston Villa", "Newcastle Utd", "Spurs", "Borussia Dortmund",
+                                        "Milan", "Chelsea", "Manchester Utd", "RB Leipzig", "Juventus", "Fenerbahçe", "Athletic Club",
+                                        "Atalanta", "Lazio", "Napoli", "Roma", "Galatasaray", "Benfica", "Sporting", "Crystal Palace",
+                                        "Nott\'m Forest", "Brighton", "West Ham", "Real Betis", "Real Sociedad", "Marseille",
+                                        "Villarreal", "Girona", "PSV"]);
     }
 
     if ('4starTeams' in vars) {
